@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sinscrolltext codef intro</title>
+        <meta name="description" content="Coded by STC/Hemoroids"/>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="http://codef.santo.fr/codef/codef_core.js"></script>
+        <script type="text/javascript" src="http://codef.santo.fr/codef/codef_scrolltext.js"></script>
+        <script type="text/javascript" src="http://codef.santo.fr/codef/codef_fx.js"></script>
+        <script type="text/javascript" src="http://codef.santo.fr/codef/codef_music.js"></script>
+
+        <script type="text/javascript">
+            var player = new music("FLOD");
+            player.stereo(true);
+            player.LoadAndRun('her41.mod');
+            var myfont = new image('font2.png');
+            var myrasters = new image('rasterD.png');
+            var mycanvas;
+            var mycanvasfont;
+            var mycanvasfontcopy;
+            var mycanvasfontcopy2;
+            var myscrolltext;
+            var myfx;
+            var myfxparam = [
+                {value: 0.1, amp: 80, inc: 0.01, offset: 0.02}
+            ];
+            var myfxparam2 = [
+                {value: 0.09, amp: 40, inc: 0.03, offset: 0.01}
+            ];
+            var text = " STC IS BACK WITH THIS LAME TRY OF AN OLD SCHOLL SINUSCROLLY !! GRRETINX TO MARACUJA AKA MR KULE ! HEMOROIDS RULEZ !!!";
+
+            function init() {
+                mycanvas = new canvas(640, 480, "main");
+                mycanvasfont = new canvas(640, 32);
+                mycanvasfontcopy = new canvas(680, 300);
+                mycanvasfontcopy2 = new canvas(680, 300);
+                myfont.initTile(32, 32, 32);
+                myscrolltext = new scrolltext_horizontal();
+                myscrolltext.scrtxt = text;
+                myscrolltext.init(mycanvasfont, myfont, 4, 20);
+                myfx = new FX(mycanvasfont, mycanvasfontcopy, myfxparam);
+                myfx2 = new FX(mycanvasfontcopy, mycanvasfontcopy2, myfxparam2);
+
+                go();
+            }
+
+            function go() {
+                mycanvas.fill('#000000');
+                mycanvasfontcopy.clear();
+                mycanvasfontcopy2.clear();
+                mycanvasfont.clear();
+                myscrolltext.draw(0);
+                myfx.siny(0, 156);
+                myfx2.sinx(-40, 0);
+                mycanvasfontcopy2.contex.globalCompositeOperation = 'source-in';
+                myrasters.draw(mycanvasfontcopy2, 0, 0);
+                mycanvasfontcopy2.draw(mycanvas);
+                mycanvasfontcopy2.contex.globalCompositeOperation = 'source-over';
+                requestAnimFrame(go);
+            }
+
+        </script> 
+    </head>
+    <body onLoad="init();">
+        <div id="main" style="width: 640px; height: 480px; margin: auto;"></div>
+    </body>
+</html>
