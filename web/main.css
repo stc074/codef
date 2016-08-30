@@ -1,0 +1,33 @@
+/* 
+    Created on : 30 août 2016, 22:31:52
+    Author     : pj
+*/
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    font-size: 0.9em;
+    color: #3366ff;
+}
+
+a {
+    text-decoration: none;
+    color: #f59310;
+    background: #fff;
+    padding: 5px;
+    margin: 3px;
+    display: inline-block;
+    vertical-align: middle;
+    border: solid 1px #eeeeee;
+    border-radius: 3px;
+    box-shadow: 0 0 4px 2px #333;
+}
+
+a:hover {
+    color: #d23e30;
+    border: solid 1px #ccc;
+    background: #eee;
+}
+
