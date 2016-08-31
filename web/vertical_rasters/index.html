@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Vertical coloured rasters</title>
+        <meta name="description" content="Coded by STC/Hemoroids"/>
+        <link rel="stylesheet" type="text/css" href="../main.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="http://codef.santo.fr/codef/codef_core.js"></script>
+        <script type="text/javascript" src="http://codef.santo.fr/codef/codef_fx.js"></script>
+        <script type="text/javascript" src="http://codef.santo.fr/codef/codef_music.js"></script>
+        <script type="text/javascript" src="http://codef.santo.fr/codef/codef_gradient.js"></script>
+        <script type="text/javascript" src="gencode.js"></script>
+        <script type="text/javascript" src="curves.js"></script>
+        <script type="text/javascript">
+            var mycanvas;
+            var logo;
+            var offset11, offset22, offset33;
+            function init() {
+                mycanvas = new canvas(640, 480, "main");
+                logo = new image('heavenly.png')
+                var player = new music('S2');
+                player.LoadAndRun('neverending_story.bp');
+                go();
+            }
+
+            function go() {
+                mycanvas.fill('#3c4865');
+                var y = 480 - 350;
+                var x;
+                offset1 += b_step1;
+                if (offset1 >= len1) {
+                    offset1 -= len1;
+                }
+                offset2 += b_step2;
+                if (offset2 >= len2) {
+                    offset2 -= len2;
+                }
+                offset3 += b_step3;
+                if (offset3 >= len3) {
+                    offset3 -= len3;
+                }
+                offset11 = offset1, offset22 = offset2, offset33 = offset3;
+                for (i = 0; i < nb_rasters; i++) {
+                    x = curv1[offset11] + curv2[offset22] + curv3[offset33] + (640 / 2);
+                    grads[i].drawV();
+                    canvas_rasters[i].draw(mycanvas, x, y);
+                    offset11 += step1;
+                    if (offset11 >= len1) {
+                        offset11 -= len1;
+                    }
+                    offset22 += step2;
+                    if (offset22 >= len2) {
+                        offset22 -= len2;
+                    }
+                    offset33 += step3;
+                    if (offset33 >= len3) {
+                        offset33 -= len3;
+                    }
+                    y += dec;
+                }
+                logo.draw(mycanvas, (640 / 2) - (340 / 2), 0);
+                requestAnimFrame(go);
+            }
+        </script> 
+    </head>
+    <body onLoad="init();">
+        <div id="main" style="width: 640px; height: 480px; margin: auto;"></div>
+        <br/>
+        <a href="../" title="RETURN">RETURN</a>
+    </body>
+</html>
