@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Atary Style codef intro</title>
+        <meta name="description" content="Coded by STC/Hemoroids"/>
+        <link rel="stylesheet" type="text/css" href="../main.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="http://codef.santo.fr/codef/codef_core.js"></script>
+        <script type="text/javascript" src="http://codef.santo.fr/codef/codef_scrolltext.js"></script>
+        <script type="text/javascript" src="http://codef.santo.fr/codef/codef_fx.js"></script>
+        <script type="text/javascript" src="http://codef.santo.fr/codef/codef_music.js"></script>
+        <script type="text/javascript" src="http://codef.santo.fr/codef/codef_gradient.js"></script>
+        <script type="text/javascript" src="grad_logo.js"></script>
+        <script type="text/javascript" src="curves_balls.js"></script>
+        <script type="text/javascript" src="rasters_h.js"></script>
+
+        <script type="text/javascript">
+            var text = " YEAAAH !!! DO YOU FEEL THE ATARI SPIRIT ???!!!!! STC OF HEMOROIDS PRESENTS HIS ATARI STYLED INTRO !!!! HMD RUUULEZ IN 2016 !!!";
+            var fonts = new image('font_noics.png');
+            var degrade = new image('degrade.png');
+            var logo = new image('logo.png');
+            var ball = new image('ball.png');
+            var mycanvas, canvasscroll, canvascopy, canvascopy2, canvas_logo, canvas_grad, scrolltext, fx, mygrad;
+            var fxparam = [
+                {value: 0.1, amp: 80, inc: 0.003, offset: 0.04},
+                {value: 0.05, amp: 40, inc: 0.002, offset: 0.02},
+                {value: 0.1, amp: 60, inc: 0.001, offset: 0.01}
+            ];
+
+            function init() {
+                var player = new music("YM");
+                player.LoadAndRun('zik.ym');
+                mycanvas = new canvas(640, 480, "main");
+                canvasscroll = new canvas(1000, 32);
+                canvascopy = new canvas(1000, 480);
+                canvascopy2 = new canvas(1000, 480);
+                canvas_logo = new canvas(206, 193);
+                canvas_grad = new canvas(206, 193);
+                logo.draw(canvas_logo);
+                fonts.initTile(32, 32, 32);
+                scrolltext = new scrolltext_horizontal();
+                scrolltext.scrtxt = text;
+                scrolltext.init(canvasscroll, fonts, 6);
+                fx = new FX(canvascopy, canvascopy2, fxparam);
+                go();
+            }
+
+            function go() {
+                init_grad_colors();
+                mycanvas.fill('#000000');
+                canvasscroll.clear();
+                canvascopy.clear();
+                canvascopy2.clear();
+                scrolltext.draw(0);
+                for (i = 0; i < 12; i++) {
+                    canvasscroll.draw(canvascopy, 0, i * 40);
+                }
+                fx.sinx(-200, 0);
+                canvascopy2.contex.globalCompositeOperation = 'source-in';
+                degrade.draw(canvascopy2);
+                canvascopy2.draw(mycanvas);
+                canvascopy2.contex.globalCompositeOperation = 'source-over';
+                mygrad.drawH();
+                canvas_logo.contex.globalCompositeOperation = 'source-in';
+                canvas_grad.draw(canvas_logo);
+                canvas_logo.contex.globalCompositeOperation = 'source-over';
+                canvas_logo.draw(mycanvas, (640 - 206) / 2, (480 - 192) / 2);
+                draw_balls();
+                draw_rastersh();
+                requestAnimFrame(go);
+            }
+        </script> 
+    </head>
+    <body onLoad="init();">
+        <div id="main" style="width: 640px; height: 480px; margin: auto;"></div>
+        <br/>
+        <a href="../" title="RETURN">RETURN</a>
+    </body>
+</html>

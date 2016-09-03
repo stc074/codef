@@ -16,6 +16,8 @@
             var mycanvas;
             var logo;
             var offset11, offset22, offset33;
+            var counter = 750, counter2 = 500, rot, sh, step_deca, margin;
+            var s_mode = false, deca_mode = true;
             function init() {
                 mycanvas = new canvas(640, 480, "main");
                 logo = new image('heavenly.png')
@@ -41,10 +43,32 @@
                     offset3 -= len3;
                 }
                 offset11 = offset1, offset22 = offset2, offset33 = offset3;
+                counter--;
+                if (counter <= 0) {
+                    s_mode = !s_mode;
+                    counter = 750;
+                }
+                counter2--;
+                if (counter2 <= 0) {
+                    deca_mode = !deca_mode;
+                    counter2 = 500;
+                }
+                rot = 0;
+                if (s_mode) {
+                    rot = -45;
+                }
+                sh = 0;
+                if (deca_mode) {
+                    step_deca = 8;
+                    margin = -200;
+                } else {
+                    step_deca = -8;
+                    margin = 200;
+                }
                 for (i = 0; i < nb_rasters; i++) {
-                    x = curv1[offset11] + curv2[offset22] + curv3[offset33] + (640 / 2);
+                    x = curv1[offset11] + curv2[offset22] + curv3[offset33] + (640 / 2) + sh + margin;
                     grads[i].drawV();
-                    canvas_rasters[i].draw(mycanvas, x, y);
+                    canvas_rasters[i].draw(mycanvas, x, y, 1, rot);
                     offset11 += step1;
                     if (offset11 >= len1) {
                         offset11 -= len1;
@@ -58,6 +82,7 @@
                         offset33 -= len3;
                     }
                     y += dec;
+                    sh += step_deca;
                 }
                 logo.draw(mycanvas, (640 / 2) - (340 / 2), 0);
                 requestAnimFrame(go);
